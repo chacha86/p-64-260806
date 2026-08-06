@@ -4,6 +4,7 @@ package com.back.p64260806;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 @Configuration
 public class AppConfig {
@@ -27,6 +28,21 @@ public class AppConfig {
         };
     }
 
+    @Bean
+    @Order(2)
+    public ApplicationRunner myApplicationRunner2() {
+        System.out.println("myApplicationRunner2");
+        return new MyApplicationRunner(2);
+    }
+
+    @Bean
+    @Order(1)
+    public ApplicationRunner myApplicationRunner1() {
+        System.out.println("myApplicationRunner1");
+        return new MyApplicationRunner(1);
+
+
+    }
 
     public void work1() {
         System.out.println("work1");
