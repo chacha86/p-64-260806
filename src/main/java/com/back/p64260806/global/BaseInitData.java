@@ -16,13 +16,14 @@ public class BaseInitData {
 
     @Autowired
     @Lazy
-    private BaseInitData self;
-    private final MemberService memberService;
+    private BaseInitData self; // proxy 리모컨
 
+    private final MemberService memberService;
     @Bean
     ApplicationRunner initDataRunner() {
         return args -> {
             self.work1();
+            self.work2();
         };
 
     }
@@ -41,5 +42,12 @@ public class BaseInitData {
         Member member5 = memberService.join("user3", "유저3");
 
 
+    }
+
+    @Transactional
+    void work2() {
+        System.out.println("work2 수행");
+        Member member4 = memberService.findByUsername("user2").get();
+        member4.setNickname("new user2"); // 더티체킹에 의해 트랜잭션 종료후 DB 반영
     }
 }
