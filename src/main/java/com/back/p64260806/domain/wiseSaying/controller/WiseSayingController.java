@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class WiseSayingController {
@@ -14,7 +15,7 @@ public class WiseSayingController {
     private List<WiseSaying> wiseSayings = new ArrayList<>();
     private int lastId = 0;
 
-    @GetMapping("/write")
+    @GetMapping("/wiseSaying/write")
     @ResponseBody
     public String actionAdd(String content, String author) {
 
@@ -38,5 +39,22 @@ public class WiseSayingController {
         wiseSayings.add(wiseSaying);
 
         return "%d번 명언이 등록되었습니다.".formatted(wiseSaying.getId());
+    }
+
+    @GetMapping("/wiseSaying/delete")
+    @ResponseBody
+    public String delete(int id) {
+
+        Optional<WiseSaying> wiseSaying = wiseSayings.stream()
+                .filter(w -> w.getId() == id)
+                .findFirst();
+
+        if(wiseSaying.isEmpty()) {
+            throw new RuntimeException("%d번 명언은 존재하지 않습니다.".formatted(id));
+        }
+
+        wiseSayings.remove(wiseSaying.get());
+
+        return "%d번 명언이 삭제되었습니다".formatted(id);
     }
 }
