@@ -3,6 +3,7 @@ package com.back.p64260806.domain.wiseSaying.controller;
 import com.back.p64260806.domain.wiseSaying.entity.WiseSaying;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -41,9 +42,9 @@ public class WiseSayingController {
         return "%d번 명언이 등록되었습니다.".formatted(wiseSaying.getId());
     }
 
-    @GetMapping("/wiseSaying/delete")
+    @GetMapping("/wiseSaying/delete/{id}")
     @ResponseBody
-    public String delete(int id) {
+    public String delete(@PathVariable int id) {
 
         Optional<WiseSaying> wiseSaying = wiseSayings.stream()
                 .filter(w -> w.getId() == id)
