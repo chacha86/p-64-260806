@@ -1,7 +1,5 @@
 package com.back.p64260806.domain.wiseSaying.entity;
 
-import com.back.p64260806.global.BaseEntity;
-import jakarta.persistence.Entity;
 import lombok.*;
 
 @Setter
@@ -10,8 +8,9 @@ import lombok.*;
 @AllArgsConstructor // 모든 인스턴스 변수에 대한 매개변수를 받는 생성자
 @EqualsAndHashCode
 @ToString
-@Entity
-public class WiseSaying extends BaseEntity {
+public class WiseSaying {
+
+    private int id;
     private String content;
     private String author;
 }
